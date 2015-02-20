@@ -11,7 +11,7 @@
 using namespace std;
 
 // sideLength: e.g. if this is a 3x3 grid, sideLength = 3
-int getFactorial(int sideLength)
+long getFactorial(int sideLength)
 {
 	// these will be the final numerator and denominator of the combination
 	// Formula. These variables are initialized to 1 because they will be involved
@@ -59,12 +59,14 @@ int getFactorial(int sideLength)
 	for (int x = 0; x < sideLength; x++)
 	{
 		finalNumerator *= (long)numeratorArray[x];
+		cout <<"Numerator: " << finalNumerator << endl;
 		finalDenominator *= (long)denominatorArray[x];
+		cout <<"Denominator: " << finalDenominator << endl;
 	}
-	return (long)(finalNumerator / finalDenominator);
+	return (finalNumerator / finalDenominator);
 }
 int main()
 {
-	int answer = getFactorial(20);
+	long answer = getFactorial(20);
 	cout << "The number of paths: " << answer << endl;
 }
