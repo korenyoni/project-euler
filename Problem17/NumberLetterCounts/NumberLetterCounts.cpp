@@ -3,30 +3,6 @@
 
 using namespace std;
 
-/*
- * one = 3
- * two = 3
- * four = 4
- * five = 4
- * six = 3
- * seven = 5
- * eight = 5
- * nine = 4
- *
- * twenty = 6
- * thirty = 6
- * forty = 5
- * fifty = 5
- * sixty = 5
- * seventy = 7
- * eighty = 6
- * ninety = 6
- *
- * hundred = 7
- * and = 3
- *
- */
-
 int digits[] = {0,3,3,5,4,4,3,5,5,4,0,3,6,6,5,5,5,7,6,6}; // 1-9,10,20,...90
 int teens[] = {6,6,8,8,7,7,9,8,8}; // numbers 11-19
 const int AND = 3;
