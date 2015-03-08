@@ -27,8 +27,8 @@ using namespace std;
  *
  */
 
-int digits[] = {0,3,3,5,4,4,3,5,5,4,0,3,6,6,5,5,5,7,6,6};
-int teens[] = {6,6,8,8,7,7,9,8,8};
+int digits[] = {0,3,3,5,4,4,3,5,5,4,0,3,6,6,5,5,5,7,6,6}; // 1-9,10,20,...90
+int teens[] = {6,6,8,8,7,7,9,8,8}; // numbers 11-19
 const int AND = 3;
 const int HUNDRED = 7;
 const int THOUSAND = 8;
@@ -79,7 +79,7 @@ int main()
 	sum += digits[1] + THOUSAND;
 	cout << sum << endl;
 
-	cout << countLetters(10) << endl;
+	//cout << countLetters(10) << endl;
 	// 143
 	// one hundred and forty three
 	// 3 + 7 + 3 + 5 + 5
