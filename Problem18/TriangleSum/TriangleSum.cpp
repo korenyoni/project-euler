@@ -7,6 +7,7 @@ using namespace std;
 
 ifstream myFile;
 vector<int> elements;
+vector<int> elementsCopy;
 int arraySize;
 int rows = 1;
 
@@ -41,6 +42,17 @@ void populateArray()
 		// count number of rows
 		i++;
 	}
+	myFile.close();
+
+}
+void populateCopy()
+{
+	elementsCopy.clear();
+	elementsCopy.resize(elements.size());
+	for (int x = 0; x < elements.size();x++)
+	{
+		elementsCopy[x] = elements[x];
+	}
 }
 int findRow(int index)
 {
@@ -72,6 +84,40 @@ int goRight(int startIndex)
 	
 	return divergeIndex;
 }
+int subLeftTriangle(int startIndex)
+{ 
+	populateCopy();
+	int index = startIndex;
+	int sum = 0;
+	elementsCopy[startIndex] = 0;
+	while (index < elementsCopy.size())
+	{
+		index = goRight(index);
+		elementsCopy[index] = 0;
+	}
+	for (int x = startIndex; x < elementsCopy.size(); x++)
+	{
+		sum += elementsCopy[x];
+	}
+	return sum;
+}
+int subRightTriangle(int startIndex)
+{
+	populateCopy();
+	int index = startIndex;
+	int sum = 0;
+	elementsCopy[startIndex] = 0;
+	while (index < elementsCopy.size())
+	{
+		index = goLeft(index);
+		elementsCopy[index] = 0;
+	}
+	for (int x = startIndex; x < elementsCopy.size(); x++)
+	{
+		sum += elementsCopy[x];
+	}
+	return sum;
+}
 int findMaximumSum()
 {
 	// to go down the left side of the triangle, we start at the first element
@@ -90,20 +136,9 @@ int findMaximumSum()
 		sum += elements[startIndex];
 		rightSum = 0;
 		leftSum = 0;
-		index = startIndex;
 		// right sum
-		for (int n = 1; n < rows - x; n++)
-		{
-			index = goRight(index);
-			rightSum += elements[index];
-		}
-		index = startIndex; // reset the index
-		// left sum
-		for (int n = 1; n < rows - x; n++)
-		{
-			index = goLeft(index);
-			leftSum += elements[index];
-		}
+		rightSum = subRightTriangle(startIndex);
+		leftSum = subLeftTriangle(startIndex);
 		if (rightSum > leftSum) // go right if rightsum is bigger than leftsum
 		{
 			cout << "RIGHT! " << rightSum << "> " << leftSum << endl;
