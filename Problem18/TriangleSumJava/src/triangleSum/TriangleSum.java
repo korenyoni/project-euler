@@ -19,7 +19,12 @@ public class TriangleSum
 	private static boolean done = false;
 	private static String path =
 			"/home/kavkaz/workspace/TriangleSumJava/src/triangleSum/triangle.txt";
+	
+	// this algorith involves binary trees and recursion.
+	// It was effective for calculating a maximum sum path for a triangle of 15 * 15 terms.
+	// However it was ineffective for Problem 67 which involves a 100 * 100 triangle
 
+	// populate the ArrayList by parsing each element (integer)
 	private static void populateVector() throws FileNotFoundException
 	{
 		Scanner input = new Scanner(new File(path));
@@ -34,6 +39,7 @@ public class TriangleSum
 		System.out.println(maxRows + " <--- maximum rows");
 	}
 
+	// given any index, find that index's row
 	private static int findRow(int index)
 	{
 		//finds the row
@@ -46,6 +52,7 @@ public class TriangleSum
 		}
 		return n - 1;
 	}
+	// given any index, find the adjacent left index
 	private static int goLeft(int startIndex)
 	{
 		int divergeIndex = startIndex;
@@ -55,6 +62,7 @@ public class TriangleSum
 
 		return divergeIndex;
 	}
+	// given any index, find the adjacent right index
 	private static int goRight(int startIndex)
 	{
 		int divergeIndex = startIndex;
@@ -65,6 +73,8 @@ public class TriangleSum
 		return divergeIndex;
 	}
 
+	// populate the alternate vector, which only contains elements 
+	// minValue or greater
 	private static void reduceCopy(int minValue)
 	{
 		myCopy.clear();
@@ -82,36 +92,38 @@ public class TriangleSum
 		}
 	}
 
+	// static inner class for the node of the binary tree
 	static class TreeNode {
-		int item;
-		TreeNode left;
-		TreeNode right;
+		int item; // the index of the element in the alternate (myCopy) vector
+		TreeNode left; // pointer to left node
+		TreeNode right; // pointer to right node
 
 		TreeNode(int item, int rowsLeft, int sum)
 		{
-			sum += myCopy.get(item);
+			sum += myCopy.get(item); // increment the sum recursively
 			this.item = item;
 			//results.add(e)
-			if (rowsLeft == 1)
+			if (rowsLeft == 1) // if there are no more rows left
 			{
-				resultNumber++;
+				resultNumber++; // increment how many different paths exist
 				System.out.println("BANG! " + sum +
-						String.format("(%d)", resultNumber));
-				done = true;
-				results.add(sum);
+						String.format("(%d)", resultNumber)); // print sum
+				done = true; // stop the loop in the main method that 
+				// calls reduceCopy()
+				results.add(sum); // add the sum to the results vector
 			}
 			else
 			{
-				int leftElement = myCopy.get(goLeft(item));
-				int rightElement = myCopy.get(goRight(item));
+				int leftElement = myCopy.get(goLeft(item)); // value of adjacent left element
+				int rightElement = myCopy.get(goRight(item)); // adjacent right element
 
-				if (leftElement != 0)
+				if (leftElement != 0) // if it is not 0 i.e. not less that minValue in reduceCopy()
 				{
-					left = new TreeNode(goLeft(item), rowsLeft -1, sum);
+					left = new TreeNode(goLeft(item), rowsLeft -1, sum); //recursive call to populate left node
 				}
-				if (rightElement != 0)
+				if (rightElement != 0) // if it is not 0 i.e. not less that minValue in reduceCopy()
 				{
-					right = new TreeNode(goRight(item), rowsLeft -1, sum);
+					right = new TreeNode(goRight(item), rowsLeft -1, sum); //recursive call to populate right node
 				}
 			}
 		}
@@ -122,12 +134,14 @@ public class TriangleSum
 		TreeNode root = null;
 		if (myCopy.get(startIndex) != 0)
 		{
-			root = new TreeNode(startIndex, maxRows, 0);
+			root = new TreeNode(startIndex, maxRows, 0); // call the constructor, this populates all possible nodes for the tree
+			// starting with the sum of 0
 		}
 		return root;
 	}
 
 	// taken from HWS
+	// this prints the elements in their order from top, left, right
 	static void preorderPrint( TreeNode root ) {
 		if ( root != null ) {  // (Otherwise, there's nothing to print.)
 			System.out.print( myCopy.get(root.item) + " " );  // Print the root item.
@@ -136,6 +150,8 @@ public class TriangleSum
 		}
 	}
 	
+	// this prints the triangle that corresponds to the alternate vector
+	// i.e. it only contains values that are at least minValue from reduceCopy()
 	private static void printEverything()
 	{
 		for (int x = 0; x < size; x++)
@@ -159,19 +175,19 @@ public class TriangleSum
 
 	public static void main(String[] args) throws FileNotFoundException
 	{
-		populateVector();
+		populateVector(); // read all the elments in txt file and populate main vector
 		System.out.println(myVector);
 		TreeNode root = null;
 		//System.out.println(myVector.get(goLeft(0)));
 		for (int i = 99; i > 0 && !done; i--) // i should iterate down from max element value
 		{
-			reduceCopy(i);
-			root = populateNodes(0);
-			System.out.println(i);
+			reduceCopy(i); // all elements in alternate vector have to be at least i, otherwise they are 0
+			root = populateNodes(0); // populate the binary tree starting from index 0
+			System.out.println(i); // print the minValue from reduceCopy()
 		}
-		preorderPrint(root);
+		preorderPrint(root); // print all elements in order
 		System.out.print("\n");
-		printEverything();
-		System.out.println(Collections.max(results));
+		printEverything(); // print the reduced triangle
+		System.out.println(Collections.max(results)); // print the max sum path
 	}
 }
