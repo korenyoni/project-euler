@@ -97,7 +97,7 @@ int calculateLargestNumber()
 		{
 			int number = i;
 			int power = 0; // how many powers for each prime number do we need to represent a number
-			while (numbers[n] > 0 && number % n == 0) // while the number is indeed prime (its initial frequency != 0)
+			while (numbers[n] > 0 && number % n == 0) // while the array number is indeed prime (its initial frequency != 0)
 				// and the number is divisible by that prime
 			{
 				power++; // increment how many powers of that prime we need
