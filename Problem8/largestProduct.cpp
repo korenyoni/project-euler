@@ -21,11 +21,10 @@ int main()
     int CHAR_SUBTRACT = 48; // the number we subtract from a char to make it equivalent to the number it represents
     long maxProduct = 0; // stores the maximum product encountered
         // needs to be a long value because of overflow when stored in an integer value
-        // i learned this the "long" way...
+        // I learned this the "long" way...
 	std::vector<char> myVector;
 	std::fstream myFile;
 
-	//myVector = std::vector(0);
 	myFile.open("grid.txt");
 
 	char i;
