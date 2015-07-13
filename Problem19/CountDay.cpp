@@ -36,7 +36,6 @@ int differenceDays(int startDate[], int endDate[])
 	int count = 0;
 	startDate[1] -= 1;
 	endDate[1] -= 1;
-	int yearDifference = endDate[0] - startDate[0];
 	int dayDifference = endDate[2] - startDate[2];
 	// calculate differences in years, days
 	// months need to be counted seperately in a loop because not all months have the same amount of days
@@ -69,7 +68,7 @@ int differenceDays(int startDate[], int endDate[])
 		count--; // if on the last year the 29th of february has not been met, then remove
 		// that extra day
 	}
-	count += dayDifference; 
+	count += dayDifference;
 
 	startDate[1] += 1;
 	endDate[1] += 1;
@@ -144,7 +143,7 @@ int main()
 	int difference = differenceDays(startDate, endDate);
 
 	std::cout << difference << " days have elapsed between the two dates." << std::endl;
-	std::cout << "The start day was a " << DAYS_WEEK[giveDay(startDate)] << 
+	std::cout << "The start day was a " << DAYS_WEEK[giveDay(startDate)] <<
 	", the end day was a " << DAYS_WEEK[giveDay(endDate)] << "." << std::endl;
 	std::cout << numberSundays(startDate, endDate) << " Sundays have passed." << std::endl;
 	std::cout << numberFirstSundays(startDate, endDate) << " Sundays fell on the first of the month"

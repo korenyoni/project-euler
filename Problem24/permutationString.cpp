@@ -59,6 +59,13 @@ int factorial(int stringSize)
     }
     return stringSize * factorial(stringSize - 1);
 }
+void printEverything(std::vector<std::string>& myVector)
+{
+    for (int i = 0; i < myVector.size(); i++)
+    {
+        std::cout << myVector[i] << std::endl;
+    }
+}
 /*Main*/
 int main()
 {
@@ -93,6 +100,7 @@ int main()
         // if there are no invalid arguments, then we can calculate the permutations
     {
         generatePermutations(permutations, basePermutation, "");
-        std::cout << std::endl << permutations[permutationNumber] << std::endl;
+        std::cout << std::endl << permutations[permutationNumber] << std::endl << std::endl;
+        printEverything(permutations);
     }
 }

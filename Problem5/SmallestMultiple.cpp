@@ -44,7 +44,7 @@ std::set<int> primes(int max)
 		}
 	}
 
-	// this removes any non-primes i.e. multiples of x and y 
+	// this removes any non-primes i.e. multiples of x and y
 	for (int i = 5; i <= sqrtMax; i++)
 	{
 		int s = i;
@@ -59,13 +59,13 @@ std::set<int> primes(int max)
 
 	return primes;
 }
-// this method calculates the smallest number that is evenly divisble by all positive integers which are 
+// this method calculates the smallest number that is evenly divisble by all positive integers which are
 // less than or equal to N
 int calculateLargestNumber()
 {
 	int size = 0;
 	long answer = 1; // 1 because it will be multiplied
-	// prompt the user to enter the number N for which all positive integers under it need to 
+	// prompt the user to enter the number N for which all positive integers under it need to
 	// be factors of the answer
 	std::cout << "Enter the number n for which all numbers under\n"
 	<< "it need to be a factor of the answer: ";
