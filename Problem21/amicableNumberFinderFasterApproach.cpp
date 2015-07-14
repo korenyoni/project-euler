@@ -3,7 +3,7 @@
 #include <set>
 #include <unordered_map>
 #include <vector>
-#include "sieveOfAtkin/atkin.hpp"
+#include "../libs/sieveOfAtkin/atkin.hpp"
 
 std::vector<int> allPrimesUpToNumber;
 std::vector<bool> allPrimesUpToNumberBool;
