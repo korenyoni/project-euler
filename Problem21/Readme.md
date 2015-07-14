@@ -11,9 +11,14 @@ I multiplied each prime's sum of itself raised to the power of 0, up to
 the power for which it is needed to represent the number. I then subtracted the number
 itself from this power since we are considering proper divisors and not all divisors.
 
-firstApproachANF calculates the sum of all amicable numbers staring from 1 and under 10000 very quickly.
-for 100000 as the limit, it takes 21 seconds.
-fasterApproachANF calculates all the amicable numbers under 10000 very quickly and for
-100000, it takes 19 seconds, which is not much of a difference.
+After using *commandTimer* for *firstApproachANF* and *fasterApproachANF* for 100 iterations, for the calculation
+of all Amicable numbers between 1 and under 10000, the average execution times were:
+*0.39385 seconds for firstApproachANF*
+*0.24786 seconds for fasterApproachANF*
 
-for 1000000, each algorithm takes over 2 minutes to calculate.
+For all Amicable numbers between 1 and under 100000 with an average calculated with 10 iterations:
+*22.5857 seconds for firstApproachANF*
+*18.9347 seconds for fasterApproachANF*
+
+For 1000000, each algorithm takes over 2 minutes to calculate.
+So the complexity of both algorithms grow quickly.
