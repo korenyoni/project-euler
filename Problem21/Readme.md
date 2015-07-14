@@ -11,6 +11,8 @@ I multiplied each prime's sum of itself raised to the power of 0, up to
 the power for which it is needed to represent the number. I then subtracted the number
 itself from this power since we are considering proper divisors and not all divisors.
 
+###Comparing speed of the two implementations:
+
 After using *commandTimer* for *firstApproachANF* and *fasterApproachANF* for 100 iterations, for the calculation
 of all Amicable numbers between 1 and under 10000, the average execution times were:
 *0.39385 seconds for firstApproachANF*
