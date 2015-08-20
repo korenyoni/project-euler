@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <vector>
 #include <cmath>
+#include <iostream>
 
 /* methods used to test the prime candidates */
 // each of these methods represents a quadratic formula used to test
@@ -10,12 +11,13 @@
 // 4x^2 + y^2 if n % 12 == 1 or 5
 // 3x^2 + y^2 if n % 12 == 7
 // 3x^2 - y^2 if n % 12 == 11
+/* METHODS FOR 4 BYTE INTEGERS */
 // these methods return true if x and y produce a prime candidate
 void testFirstQuadratic(int x, int y, int limit, std::vector<bool> &primeIndexBoolVector)
 {
     int n = (4 * x * x) + (y * y);
     bool isPrimeCandidate = n <= limit && (n % 12 == 1 || n % 12 == 5);
-    if (n < primeIndexBoolVector.size() - 1)
+    if (n < primeIndexBoolVector.size())
     {
         primeIndexBoolVector[n] = primeIndexBoolVector[n] || isPrimeCandidate;
     }
@@ -24,7 +26,7 @@ void testSecondQuadratic(int x, int y, int limit, std::vector<bool> &primeIndexB
 {
     int n = (3 * x * x) + (y * y);
     bool isPrimeCandidate = n <= limit && (n % 12 == 7);
-    if (n < primeIndexBoolVector.size() - 1)
+    if (n < primeIndexBoolVector.size())
     {
         primeIndexBoolVector[n] = primeIndexBoolVector[n] || isPrimeCandidate;
     }
@@ -33,7 +35,7 @@ void testThirdQuadratic(int x, int y, int limit, std::vector<bool> &primeIndexBo
 {
     int n = (3 * x * x) - (y * y);
     bool isPrimeCandidate = x > y && n <= limit && (n % 12 == 11);
-    if (n < primeIndexBoolVector.size() - 1)
+    if (n < primeIndexBoolVector.size())
     {
         primeIndexBoolVector[n] = primeIndexBoolVector[n] || isPrimeCandidate;
     }
@@ -80,10 +82,10 @@ void producePrimeCandidates(std::vector<bool> &primeIndexBoolVector, int limit)
  * and their value is true if they are prime numbers*/
 std::vector<bool> boolAtkin(int limit)
 {
-    std::vector<bool> primeIndexBoolVector(limit);
+    std::vector<bool> primeIndexBoolVector(limit + 1);
     // in this vector the prime number is the index
     // and the value is true if that index represents a prime number.
-    producePrimeCandidates(primeIndexBoolVector, limit);
+    producePrimeCandidates(primeIndexBoolVector, limit + 1);
     filterMultiples(limit, primeIndexBoolVector);
     // populate primeNumbersVector with prime numbers
     // since the sieve of atkin does not work for primes under 5,
@@ -92,20 +94,24 @@ std::vector<bool> boolAtkin(int limit)
     primeIndexBoolVector[3] = true;
     return primeIndexBoolVector;
 }
+// returns a vector with the primes, in order, for the indeces whose elements are true
+// in the prime number index boolean vector
+std::vector<int> atkinFromBoolVector(std::vector<bool> &boolPrimeVector)
+{
+    std::vector<int> primeNumbersVector;
+    for (int i = 0; i < boolPrimeVector.size(); i++)
+    {
+        if (boolPrimeVector[i]) primeNumbersVector.push_back(i);
+    }
+    return primeNumbersVector;
+}
 /* returns a vector of all the prime numbers, in order,
  * less than or equal to the specified maximum */
 std::vector<int> atkin(int limit)
 {
+    limit = limit < 5 ? 5 : limit;
+    // if the limit is less than 5, make it 5.
     std::vector<bool> primeIndexBoolVector = boolAtkin(limit);
-    std::vector<int> primeNumbersVector;
-
-    for (int i = 0; i < primeIndexBoolVector.size(); i++)
-    {
-        if (primeIndexBoolVector[i])
-        {
-            primeNumbersVector.push_back(i);
-        }
-    }
-    // this vector contains the prime numbers, in order.
-    return primeNumbersVector;
+    // the returned vector contains the prime numbers, in order.
+    return atkinFromBoolVector(primeIndexBoolVector);
 }

@@ -5,5 +5,6 @@
 
 std::vector<int> atkin(int limit);
 std::vector<bool> boolAtkin(int limit);
+std::vector<int> atkinFromBoolVector(std::vector<bool> &boolPrimeVector);
 
 #endif
